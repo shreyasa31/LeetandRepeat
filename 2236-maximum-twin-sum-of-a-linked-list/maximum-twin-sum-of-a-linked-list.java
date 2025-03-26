@@ -30,6 +30,7 @@ class Solution {
             curr=s;
          }
         //  return prev.val;
+        //calculate max
          int max=0;
          ListNode start=head;
          while(prev!=null){
