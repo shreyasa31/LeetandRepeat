@@ -31,7 +31,7 @@ class Solution {
         }
 
         ListNode node=head;
-        ListNode second=prev;
+        ListNode second=prev;// just consider two temporary variables here 
         while(node.next!=null && second.next!=null){
            ListNode temp1=node.next;
            ListNode temp2=second.next;
