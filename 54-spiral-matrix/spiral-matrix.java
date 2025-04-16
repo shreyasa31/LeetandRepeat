@@ -15,7 +15,7 @@ class Solution {
         while (res.size()<rows*cols) {
             // traverse from left6 to right
             for (int col = left; col <= right; col++) {
-                res.add(matrix[up][col]);
+                res.add(matrix[left][col]);
             }
 
             up++;
