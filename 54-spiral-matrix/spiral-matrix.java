@@ -9,7 +9,7 @@ class Solution {
         int right = cols - 1;
 
         ArrayList<Integer> res = new ArrayList<>();
-        if (matrix == null || matrix.length == 0) {
+        if (matrix == null ) {
             return res;
         }
         while (res.size()<rows*cols) {
@@ -30,12 +30,15 @@ class Solution {
 
             // traverse from right to left
 
-            if (up <= down) {
+            if(up<=down){
+
+            
                 for (int col = right; col >= left; col--) {
                     res.add(matrix[down][col]);
                 }
                 down--;
             }
+            
 
             if (left <= right) {
                 for (int row = down; row >= up; row--) {
