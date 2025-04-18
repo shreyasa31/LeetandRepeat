@@ -6,7 +6,7 @@ class Solution {
                         nums1[b[0]] + nums2[b[1]]));
 
         ArrayList<List<Integer>> res = new ArrayList<>();
-        for (int i=0;i<Math.min(nums2.length,k);i++) {
+        for (int i=0;i<nums2.length;i++) {
             minHeap.add(new int[] { 0, i });
         }
 
