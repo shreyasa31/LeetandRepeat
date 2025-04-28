@@ -13,7 +13,7 @@ class Solution {
                 count += (j - i + 1);
 
             } else {
-                while (i <= j && sum *(j-i+1) >= k) {
+                while (sum *(j-i+1) >= k) {
                     sum -= nums[i];
                     i++;
                 }
