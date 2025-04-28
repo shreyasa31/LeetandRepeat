@@ -7,9 +7,9 @@ class Solution {
         long count = 0;
         while (j < nums.length) {
             sum += nums[j];
-            res = sum * (j - i + 1);
+        
 
-            if (res < k) {
+            if (sum * (j - i + 1) < k) {
                 count += (j - i + 1);
 
             } else {
