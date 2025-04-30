@@ -7,6 +7,6 @@ class Solution {
                count++;
             }
         }
-        return count;
+        return count;  // id not this then do math
     }
 }
