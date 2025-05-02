@@ -2,7 +2,7 @@
 
 class Solution {
     public int numberOfSubstrings(String s) {
-        int n = s.length();
+        int n = s.length(); //hashset fails for aaabc
         int i = 0, j = 0;
         int result = 0;
         HashMap<Character, Integer> map = new HashMap<>();
