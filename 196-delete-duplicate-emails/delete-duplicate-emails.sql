@@ -1,6 +1,6 @@
 # Write your MySQL query statement below
 WITH duplicates AS (
-  SELECT *,
+  SELECT id,
          ROW_NUMBER() OVER (PARTITION BY email ORDER BY id) AS rn
   FROM Person
 )
