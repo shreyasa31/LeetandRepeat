@@ -44,8 +44,9 @@ class LRUCache {
     public void put(int key, int value) {
 
         if(map.containsKey(key)){
-     
-            remove(map.get(key));
+             remove(map.get(key));
+            map.remove(key);
+           
         }
 
         Node newNode=new Node(key,value);
