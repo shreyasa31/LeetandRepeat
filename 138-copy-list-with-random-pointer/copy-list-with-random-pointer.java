@@ -16,6 +16,7 @@ class Node {
 class Solution {
     public Node copyRandomList(Node head) {
         Node curr=head;
+        if(head==null) return null;
         while(curr!=null){ //copying next pointers like zigzag fashion creating clones
             Node node=new Node(curr.val);
             Node temp=curr.next;
@@ -23,7 +24,7 @@ class Solution {
             node.next=temp;
             curr=temp;
         }
-        if(head==null) return null;
+        
 
         //copying random pointers
         curr=head;
