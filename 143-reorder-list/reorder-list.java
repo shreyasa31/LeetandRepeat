@@ -12,37 +12,37 @@ class Solution {
     public void reorderList(ListNode head) {
         ListNode slow=head;
         ListNode fast=head;
-
         while(fast!=null && fast.next!=null){
-            slow=slow.next;
-            fast=fast.next.next;
-            if(slow==fast)
-            break;
+             slow=slow.next;
+             fast=fast.next.next;
+            //  if(slow==fast) break;
         }
 
-
-        ListNode curr=slow;
         ListNode prev=null;
+        ListNode curr=slow;
         while(curr!=null){
             ListNode temp=curr.next;
             curr.next=prev;
             prev=curr;
             curr=temp;
+
+            
+        }
+        
+
+        ListNode list2=prev;
+        ListNode list1=head;
+
+        while(list1.next!=null && list2.next!=null){
+           ListNode temp1=list1.next;
+           ListNode temp2=list2.next;
+            list1.next=list2;
+         list1=temp1;
+            list2.next=temp1;
+          
+             list2=temp2;
         }
 
-        ListNode node=head;
-        ListNode second=prev;// just consider two temporary variables here 
-        while(node.next!=null && second.next!=null){
-           ListNode temp1=node.next;
-           ListNode temp2=second.next;
 
 
-           node.next=second;
-           node=temp1;
-
-           second.next=temp1;
-           second=temp2;
-        }
-
-    }
-}
+}}
