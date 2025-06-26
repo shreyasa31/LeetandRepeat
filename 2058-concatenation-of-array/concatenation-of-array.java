@@ -5,10 +5,10 @@ class Solution {
         for(int i=0;i<res.length;i++){
             res[i]=nums[j];
             j++;
-            if(j==nums.length){
+            if(i==nums.length-1){
                 j=0;
             }
-            
+
         }
         return res;
     }
