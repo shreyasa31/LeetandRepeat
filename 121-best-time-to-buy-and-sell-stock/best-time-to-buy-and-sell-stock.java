@@ -6,7 +6,7 @@ class Solution {
              if(min>prices[i]){
                 min=prices[i];
              }
-             System.out.println(min);
+            
              int profit=Math.abs(prices[i]-min);
              max=Math.max(max,profit);
              
