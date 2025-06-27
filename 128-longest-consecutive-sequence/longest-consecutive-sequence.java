@@ -11,12 +11,12 @@ class Solution {
           
             if(!set.contains(num-1)){
             int k=num;
-            int count=1;
+            int count=0;
             while(set.contains(k+1)){
                 count++;
                 k++;
             }
-            max=Math.max(max,count);
+            max=Math.max(max,count+1);
             }
         }
         
