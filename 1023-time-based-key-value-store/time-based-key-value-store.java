@@ -6,21 +6,17 @@ class TimeMap {
     
     public void set(String key, String value, int timestamp) {
         if(!map.containsKey(key)){
-            map.put(key, new TreeMap<Integer,String>());
-
+        map.put(key,new TreeMap<Integer,String>());
         }
-
         map.get(key).put(timestamp,value);
-        // System.out.println(map);
     }
     
     public String get(String key, int timestamp) {
         if(!map.containsKey(key)){
             return "";
         }
-        Map.Entry<Integer,String> k=map.get(key).floorEntry(timestamp);
-    //    System.out.println(k);
-        return  k != null ? k.getValue() : "";
+        Map.Entry<Integer, String> k=map.get(key).floorEntry(timestamp);
+        return k==null?"":k.getValue();
     }
 }
 
