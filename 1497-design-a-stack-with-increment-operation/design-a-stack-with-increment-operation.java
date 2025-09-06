@@ -1,30 +1,31 @@
 class CustomStack {
-    int[] array; int size;int i;
+    int[] res;int i; int size;
     public CustomStack(int maxSize) {
-        array=new int[maxSize];
-        size=maxSize;    
+        res=new int[maxSize];
         i=0;
+        size=maxSize;
     }
     
     public void push(int x) {
     
         if(i<size){
-            array[i]=x;
-            i++;
+        res[i]=x;
+        i++;
         }
+     
+
     }
     
     public int pop() {
-        if(i==0){
-           return -1;
-        }
+        if(i==0) return -1;
         i--;
-        return array[i];
+        return res[i];
+
     }
     
     public void increment(int k, int val) {
         for(int j=0;j<Math.min(k,i);j++){
-            array[j]+=val;
+            res[j]=res[j]+val;
         }
     }
 }
