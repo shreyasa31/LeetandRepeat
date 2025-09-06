@@ -1,57 +1,51 @@
 class Node{
     Node next;
     int val;
-
-   public Node(int val){
-     this.val=val;
-     next=null;
+    Node(int val){
+        this.val=val;
+        next=null;
     }
 }
 
 
 class MyCircularQueue {
-
-
-    Node front, rear;
-    int size;
-    int currsize;
+   Node front,rear;
+   int size; int currsize;
     public MyCircularQueue(int k) {
-        front=null;
-        rear=null;
-        currsize=0;
-        size=k;
+       front=null;
+       rear=null;
+       size=k;
+       currsize=0;
     }
     
     public boolean enQueue(int value) {
         if(isFull()) return false;
-         Node node=new Node(value);
-
-         if(isEmpty()){   //adding node in the beginning when no nodes present
-             front=rear=node;
-             rear.next=front;
-         }else{
-            rear.next=node;
-            node.next=front;
-            rear=node;
-         }
-         currsize++;
-         return true;
-
+        Node newnode=new Node(value);
+        if(isEmpty()){
+            front=rear=newnode;
+            rear.next=front;
+        }else{
+            rear.next=newnode;
+            rear=newnode;
+            rear.next=front;
+        }
+        currsize++;
+        return true;
     }
     
     public boolean deQueue() {
         if(isEmpty()) return false;
-        if(front==rear) 
+          if(front==rear) 
         {
             front=rear=null;
-        }
+        }else{
 
-        else{
-         front=front.next;
-        rear.next=front;
-        }
-      currsize--;
+        
+        front=front.next;
+        rear.next=front;}
+        currsize--;
         return true;
+
     }
     
     public int Front() {
@@ -69,7 +63,7 @@ class MyCircularQueue {
     }
     
     public boolean isFull() {
-         return currsize==size;
+        return currsize==size;
     }
 }
 
