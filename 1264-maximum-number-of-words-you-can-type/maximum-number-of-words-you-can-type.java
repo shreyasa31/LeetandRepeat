@@ -12,6 +12,7 @@ class Solution {
             for(char c:s.toCharArray()){
                 if(map.contains(c)){
                     flag=true;
+                    break;
                    
                 }
             }
