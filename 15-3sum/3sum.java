@@ -5,8 +5,8 @@ class Solution {
      for(int i=0;i<nums.length-2;i++){
         int j=i+1;
         int k=nums.length-1;
-        if(i>0 && nums[i]==nums[i-1]){
-            continue;
+        while(i<nums.length-1 && nums[i]==nums[i+1]){
+            i++;
         }
         while(j<k){
             int sum=nums[i]+nums[j]+nums[k];
