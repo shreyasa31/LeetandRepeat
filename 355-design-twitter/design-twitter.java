@@ -111,3 +111,66 @@ class Twitter {
         }
     }
 }
+
+//clean code
+// class Twitter {
+//     private Map<Integer, Set<Integer>> followed = new HashMap<>();
+//     private LinkedList<int[]> tw = new LinkedList<>();
+//     private int ts = 0;
+    
+//     public void postTweet(int userId, int tweetId) {
+//         tw.addFirst(new int[]{userId, tweetId, ts++});
+
+//         if (!followed.containsKey(userId)) {
+//             followed.put(userId, new HashSet<>());
+//             followed.get(userId).add(userId);
+//         }
+//     }
+    
+//     public List<Integer> getNewsFeed(int userId) {
+//         List<Integer> res = new ArrayList<>();
+//         if (!followed.containsKey(userId)) return res;
+
+//         Set<Integer> followees = followed.get(userId);
+
+//         for (int[] tweet : tw) {
+//             if (followees.contains(tweet[0])) {
+//                 res.add(tweet[1]);
+//                 if (res.size() == 10) break;
+//             }
+//         }
+
+//         return res;
+//     }
+    
+//     public void follow(int followerId, int followeeId) {
+//         if (!followed.containsKey(followerId)) {
+//             followed.put(followerId, new HashSet<>());
+//             followed.get(followerId).add(followerId);
+//         }
+//         followed.get(followerId).add(followeeId);
+//     }
+    
+//     public void unfollow(int followerId, int followeeId) {
+//         if (followed.containsKey(followerId) && followerId != followeeId) {
+//             followed.get(followerId).remove(followeeId);
+//         }
+//     }
+// }
+
+// Here are the time and space costs for that implementation.
+
+// postTweet
+// Average O(1). addFirst on the linked list is O(1). The map and set inserts are O(1) on average.
+
+// getNewsFeed
+// Worst case O(T) where T is the total number of tweets ever posted, since you may scan the whole list to collect up to ten from followees. Best case O(10) if the first ten tweets already belong to followees. Each membership check in the followee set is O(1) on average.
+
+// follow
+// Average O(1) for map lookup or insert and set insert.
+
+// unfollow
+// Average O(1) for map lookup and set remove.
+
+// Space
+// O(T + U + R). T for stored tweets, U for user entries in the map, R for total follow relationships stored in sets.
