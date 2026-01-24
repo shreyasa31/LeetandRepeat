@@ -9,7 +9,7 @@ class Solution {
             if(map.containsKey(c)){
                 map.put(c, map.get(c)-1);
                
-                flag=true;
+                
                 if(map.get(c)==0){
                     map.remove(c);
                 }
@@ -23,6 +23,6 @@ class Solution {
             
            
         }
-        return flag;
+        return true;
     }
 }
