@@ -13,22 +13,24 @@ class Solution {
         ListNode dummy=new ListNode(0);
         dummy.next=head;
         ListNode curr=head;
-        int size=0;
+        int count=0;
         while(curr!=null){
-         size++;
-         curr=curr.next;
+           
+            curr=curr.next;
+             count++;
+        
         }
-
         curr=dummy;
-    
-        for(int i=0;i<size-n;i++){
+
+         for(int i=0;i<count-n;i++){
   
            curr=curr.next;
         
 
         }
+     
         curr.next=curr.next.next;
-        
         return dummy.next;
+        
     }
 }
