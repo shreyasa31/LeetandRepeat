@@ -1,5 +1,3 @@
-import java.util.*;
-
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -17,55 +15,30 @@ import java.util.*;
  */
 class Solution {
     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
-        // result list to hold all levels
-        List<List<Integer>> result = new ArrayList<>();
-
-        // if root is null return empty result
-        if (root == null) return result;
-
-        // queue for standard level order traversal
-        Queue<TreeNode> queue = new LinkedList<>();
-
-        // start with the root in the queue
-        queue.offer(root);
-
-        // direction flag true means left to right false means right to left
-        boolean leftToRight = true;
-
-        // process until the queue is empty
-        while (!queue.isEmpty()) {
-            // number of nodes in the current level
-            int size = queue.size();
-
-            // list to store values of this level
-            List<Integer> level = new ArrayList<>(size);
-
-            // take exactly size nodes from the queue
-            for (int i = 0; i < size; i++) {
-                // get next node from the queue
-                TreeNode node = queue.poll();
-
-                // add its value to this level list
-                level.add(node.val);
-
-                // push left child to queue if it exists
-                if (node.left != null) queue.offer(node.left);
-
-                // push right child to queue if it exists
-                if (node.right != null) queue.offer(node.right);
+        Queue<TreeNode> queue=new LinkedList<>();
+        ArrayList<List<Integer>> res=new ArrayList<>();
+        if(root==null) return res;
+        int level=0;
+        queue.add(root);
+        boolean lefttoright=false;
+        while(!queue.isEmpty()){
+           res.add(new ArrayList<>());
+           level=queue.size();
+           for(int i=0;i<level;i++){
+            TreeNode curr=queue.poll();
+            if(lefttoright){
+                   res.get(res.size()-1).addFirst(curr.val);
+            }else{
+                 res.get(res.size()-1).addLast(curr.val);
             }
+           
+            if(curr.left!=null) queue.add(curr.left);
+            if(curr.right!=null)  queue.add(curr.right);
 
-            // if this level should be right to left reverse the collected list
-            if (!leftToRight) Collections.reverse(level);
-
-            // add the level to the final result
-            result.add(level);
-
-            // flip direction for the next level
-            leftToRight = !leftToRight;
+           }
+           lefttoright=!lefttoright;
+           
         }
-
-        // return the zigzag level order traversal
-        return result;
+        return res;
     }
 }
