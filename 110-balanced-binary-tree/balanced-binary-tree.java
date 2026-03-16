@@ -28,7 +28,7 @@ return maxDepth(root)!=-1;
         if(left==-1) return -1;
         int right=maxDepth(root.right);
         if(right==-1) return -1;
-        System.out.println("not greater"+Math.abs(left-right));
+    
         if(Math.abs(left-right)>1) return -1;
         return Math.max(left,right)+1;
     }
