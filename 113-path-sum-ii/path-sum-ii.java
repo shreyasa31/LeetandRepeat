@@ -1,5 +1,3 @@
-import java.util.*;
-
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -16,43 +14,24 @@ import java.util.*;
  * }
  */
 class Solution {
+    ArrayList<List<Integer>> res=new ArrayList<>();
+    ArrayList<Integer> arr=new ArrayList<>();
     public List<List<Integer>> pathSum(TreeNode root, int targetSum) {
-        List<List<Integer>> res = new ArrayList<>();
-        if (root == null) return res;
+        
+        if(root==null) return res;
+        arr.add(root.val);
+        int sum=targetSum-root.val;
+       
+        if(root.left==null && root.right==null && sum==0){
+             res.add(new ArrayList<>(arr));
+           
 
-        Stack<TreeNode> nodes = new Stack<>();
-        Stack<Integer> sums = new Stack<>();
-        Map<TreeNode, TreeNode> parent = new HashMap<>();
-
-        nodes.push(root);
-        sums.push(root.val);
-        parent.put(root, null);
-
-        while (!nodes.isEmpty()) {
-            TreeNode cur = nodes.pop();
-            int curSum = sums.pop();
-
-            // if leaf and sum matches, rebuild the path using parent links
-            if (cur.left == null && cur.right == null && curSum == targetSum) {
-                List<Integer> path = new ArrayList<>();
-                for (TreeNode x = cur; x != null; x = parent.get(x)) {
-                    path.add(x.val);
-                }
-                Collections.reverse(path);
-                res.add(path);
-            }
-
-            if (cur.right != null) {
-                parent.put(cur.right, cur);
-                nodes.push(cur.right);
-                sums.push(curSum + cur.right.val);
-            }
-            if (cur.left != null) {
-                parent.put(cur.left, cur);
-                nodes.push(cur.left);
-                sums.push(curSum + cur.left.val);
-            }
+          
         }
+        pathSum(root.left,sum);
+        pathSum(root.right,sum);
+        arr.remove(arr.size() - 1);
+
         return res;
     }
 }
