@@ -13,42 +13,34 @@
  *     }
  * }
  */
-//  class Pair{
-//     TreeNode t;
-//     int val
-//     Pair(TreeNode t, int val){
-//         this.t=t;
-//         this.val=val;
-//     }
-//  }
 class Solution {
     public int widthOfBinaryTree(TreeNode root) {
-        Queue<Pair<TreeNode, Integer>> queue=new LinkedList<>();
-        int max=Integer.MIN_VALUE;
-        queue.add(new Pair<>(root,0));
-        while(!queue.isEmpty()){
-           
-           int minidx=queue.peek().getValue();
-           int first=0;int last=0;
-           int l=queue.size();
-           for(int i=0;i<l;i++){
-            Pair<TreeNode, Integer> curr=queue.poll();
-            int curridx=curr.getValue();
-            int next=curridx-minidx;
-            if(i==0) first=curridx;
-            if(i==l-1) last=curridx;
-            TreeNode currNode=curr.getKey();
-            if(currNode.left!=null){
-                queue.add(new Pair<>(currNode.left, (2*next)+1));
-            }
-             if(currNode.right!=null){
-                queue.add(new Pair<>(currNode.right, (2*next)+2));
-            }
+        if(root==null) return 0;
+       Queue<Pair<TreeNode,Integer>> queue=new LinkedList<>();
+       queue.add(new Pair<>(root,0));
+       int max=Integer.MIN_VALUE;
+       int idx=0;
+       while(!queue.isEmpty())
+       {
+           int level=queue.size();
+           int min=Integer.MAX_VALUE;int f=0;int l=0;
+           for(int i=0;i<level;i++){
+
+         
+           Pair<TreeNode,Integer> curr=queue.poll();
+           TreeNode node=curr.getKey();
+           idx=curr.getValue();
+           if(i==0) f=idx;
+           if(i==level-1) l=idx;
+        
+           min=Math.min(min,idx);
+           int a=idx-min;
+           if(node.left!=null) queue.add(new Pair<>(node.left, 2*a+1 ));
+           if(node.right!=null) queue.add(new Pair<>(node.right, 2*a+2));
            }
-           max=Math.max(max, (last-first+1));
+           max=Math.max(max, l-f+1);
 
-        }
-        return max;
-
+       }
+       return max;
     }
 }
