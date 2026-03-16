@@ -16,15 +16,20 @@
 class Solution {
     public boolean isBalanced(TreeNode root) {
       
-      if(root==null) return true;
-
-      return Math.abs(maxDepth(root.left)-maxDepth(root.right))<2 && isBalanced(root.left) && isBalanced(root.right);
+ 
+return maxDepth(root)!=-1;
+     
 
 
     }
     int maxDepth(TreeNode root){
         if(root==null) return 0;
-        int max=Math.max(maxDepth(root.left),maxDepth(root.right));
-        return max+1;
+        int left=maxDepth(root.left);
+        if(left==-1) return -1;
+        int right=maxDepth(root.right);
+        if(right==-1) return -1;
+        System.out.println("not greater"+Math.abs(left-right));
+        if(Math.abs(left-right)>1) return -1;
+        return Math.max(left,right)+1;
     }
 }
