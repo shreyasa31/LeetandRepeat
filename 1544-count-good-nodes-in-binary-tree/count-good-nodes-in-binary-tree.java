@@ -14,35 +14,24 @@
  * }
  */
 class Solution {
+    int count=0;
+       
     public int goodNodes(TreeNode root) {
-        if(root==null) return 0;
-           int maxnumber=Integer.MIN_VALUE; int count=0;
-         Stack<Pair<TreeNode, Integer>> stack=new Stack<>();
-         stack.push(new Pair(root, root.val));
+       
+       return Count(root, Integer.MIN_VALUE);
+          
+         
 
-         while(!stack.isEmpty()){
-            Pair<TreeNode, Integer> res=stack.pop();
-            root=res.getKey();
-            int max=res.getValue();
-            if(root.val>=max){
-                count++;
-            }
-
-
-            maxnumber=Math.max(max,root.val);
-
-            if(root.left!=null){
-                stack.push(new Pair(root.left,maxnumber));
-            }
-            
-            if(root.right!=null){
-                stack.push(new Pair(root.right,maxnumber));
-            }
-            
+    }
+    int Count(TreeNode node, int max){
+           if(node==null) return count;
+         if(max<=node.val){
+            max=node.val;
+            count++;
          }
-
+         
+        Count(node.left,max);
+        Count(node.right, max);
          return count;
-
-    
     }
 }
