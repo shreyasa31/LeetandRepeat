@@ -1,43 +1,31 @@
-import java.util.*;
-
 class Solution {
     public int maxAreaOfIsland(int[][] grid) {
-        int m = grid.length;
-        int n = grid[0].length;
+        Queue<int[]> queue=new LinkedList<>();
+        int max=0;
+        int[][] dirs={{1,0},{-1,0},{0,-1},{0,1}};
+        for(int i=0;i<grid.length;i++){
+            for(int j=0;j<grid[0].length;j++){
+                if(grid[i][j]==1){
+                    int count=1;
+                    queue.add(new int[]{i,j});
+                    grid[i][j]=0;
+                    while(!queue.isEmpty()){
+                      int[] curr=queue.poll();
 
-        int[][] DIRS = new int[][]{
-            {1, 0}, {-1, 0}, {0, 1}, {0, -1}
-        };
-
-        int best = 0;
-        Queue<int[]> q = new LinkedList<>();
-
-        for (int r = 0; r < m; r++) {
-            for (int c = 0; c < n; c++) {
-                if (grid[r][c] == 1) {
-                    int area = 0;
-                    q.offer(new int[]{r, c});
-                    grid[r][c] = 0;
-
-                    while (!q.isEmpty()) {
-                        int[] cell = q.poll();
-                        int cr = cell[0], cc = cell[1];
-                        area++;
-
-                        for (int[] d : DIRS) {
-                            int nr = cr + d[0];
-                            int nc = cc + d[1];
-
-                            if (nr >= 0 && nr < m && nc >= 0 && nc < n && grid[nr][nc] == 1) {
-                                grid[nr][nc] = 0;
-                                q.offer(new int[]{nr, nc});
-                            }
+                      for(int[] k: dirs){
+                        int nr=curr[0]+k[0];
+                        int nc=curr[1]+k[1];
+                        if(nr>=0 && nc>=0 && nr<grid.length && nc<grid[0].length && grid[nr][nc]==1){
+                  count++;
+                  grid[nr][nc]=0;
+                  queue.add(new int[]{nr,nc});
                         }
+                      }
+                      max=Math.max(max,count);
                     }
-                    best = Math.max(best, area);
                 }
             }
         }
-        return best;
+        return max;
     }
 }
