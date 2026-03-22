@@ -1,65 +1,64 @@
 class Solution {
-    private static final int[][] DIRECTIONS = new int[][]{{0, 1}, {1, 0}, {-1, 0}, {0, -1}};
-    private int numRows;
-    private int numCols;
-    private int[][] landHeights;
-    
-    public List<List<Integer>> pacificAtlantic(int[][] matrix) {
-        // Check if input is empty
-        if (matrix.length == 0 || matrix[0].length == 0) {
-            return new ArrayList<>();
+    public List<List<Integer>> pacificAtlantic(int[][] heights) {
+        List<List<Integer>> list = new ArrayList<>();
+        Queue<int[]> pacificqueue = new LinkedList<>();
+        Queue<int[]> atlanticqueue = new LinkedList<>();
+        int rows = heights.length;
+        int cols = heights[0].length;
+        for (int i = 0; i < rows; i++) {
+             pacificqueue.add(new int []{i,0});
+             atlanticqueue.add(new int[]{i,cols-1});
         }
-        
-        // Save initial values to parameters
-        numRows = matrix.length;
-        numCols = matrix[0].length;
-        landHeights = matrix;
-        boolean[][] pacificReachable = new boolean[numRows][numCols];
-        boolean[][] atlanticReachable = new boolean[numRows][numCols];
-        
-        // Loop through each cell adjacent to the oceans and start a DFS
-        for (int i = 0; i < numRows; i++) {
-            dfs(i, 0, pacificReachable);
-            dfs(i, numCols - 1, atlanticReachable);
+
+        for (int j = 0; j < cols; j++) {
+             pacificqueue.add(new int[]{0,j});
+             atlanticqueue.add(new int[]{rows-1,j});
         }
-        for (int i = 0; i < numCols; i++) {
-            dfs(0, i, pacificReachable);
-            dfs(numRows - 1, i, atlanticReachable);
-        }
-        
-        // Find all cells that can reach both oceans
-        List<List<Integer>> commonCells = new ArrayList<>();
-        for (int i = 0; i < numRows; i++) {
-            for (int j = 0; j < numCols; j++) {
-                if (pacificReachable[i][j] && atlanticReachable[i][j]) {
-                    commonCells.add(List.of(i, j));
+        boolean[][] pacific=bfs(pacificqueue, heights);
+        boolean[][] atlantic=bfs(atlanticqueue, heights);
+      
+        for(int i=0;i<rows;i++){
+            for(int j=0;j<cols;j++){
+                if(pacific[i][j] && atlantic[i][j]){
+                    List<Integer> r=new ArrayList<>();
+                    r.add(i);
+                    r.add(j); // list.of(i,j)
+                    list.add(r);
                 }
             }
         }
-        return commonCells;
+
+
+        return list;
+        
+        
+
     }
-    
-    private void dfs(int row, int col, boolean[][] reachable) {
-        // This cell is reachable, so mark it
-        reachable[row][col] = true;
-        for (int[] dir : DIRECTIONS) { // Check all 4 directions
-            int newRow = row + dir[0];
-            int newCol = col + dir[1];
-            // Check if new cell is within bounds
-            if (newRow < 0 || newRow >= numRows || newCol < 0 || newCol >= numCols) {
-                continue;
+    boolean[][] bfs(Queue<int[]> queue, int[][] heights){
+        boolean[][] visited=new boolean[heights.length][heights[0].length];
+        boolean[][] reachable=new boolean[heights.length][heights[0].length];
+        int[][] dirs={{1,0},{-1,0},{0,-1},{0,1}};
+        while(!queue.isEmpty()){
+            int[] curr=queue.poll();
+            
+            int r=curr[0];
+            int c=curr[1];
+            visited[r][c]=true;
+            reachable[r][c]=true;
+            
+            for(int[] k:dirs){
+                int nr=k[0]+r;
+                int nc=k[1]+c;
+
+                if(nr>=0 && nc>=0 && nr<heights.length && nc<heights[0].length && visited[nr][nc]==false && heights[r][c]<=heights[nr][nc]){
+                    visited[nr][nc]=true;
+                    queue.add(new int[]{nr,nc});
+                }
             }
-            // Check that the new cell hasn't already been visited
-            if (reachable[newRow][newCol]) {
-                continue;
-            }
-            // Check that the new cell has a higher or equal height,
-            // So that water can flow from the new cell to the old cell
-            if (landHeights[newRow][newCol] < landHeights[row][col]) {
-                continue;
-            }
-            // If we've gotten this far, that means the new cell is reachable
-            dfs(newRow, newCol, reachable);
+                    
         }
+        return reachable;
     }
+
+
 }
