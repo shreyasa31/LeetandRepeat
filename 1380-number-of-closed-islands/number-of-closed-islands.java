@@ -13,14 +13,16 @@ class Solution {
                     queue.add(new int[] { i, j });
                     isclosed=true;
                     visited[i][j] = true;
-               
+                    
                     while (!queue.isEmpty()) {
                         int[] curr = queue.poll();
                         int r = curr[0];
                         int c = curr[1];
                         if(r==0 || c==0 || r==rows-1|| c==cols-1){
                                  isclosed=false;
+                            
                             }
+                            
                         for (int[] k : dirs) {
                             int nr = k[0] + r;
                             int nc = k[1] + c;
@@ -34,8 +36,9 @@ class Solution {
 
                         }
                     }
-                    if(isclosed) count++;
+   if(isclosed) count++;
                 }
+             
             }
         }
                           
