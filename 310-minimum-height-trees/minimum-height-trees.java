@@ -31,7 +31,7 @@ class Solution {
         while(remnode>2){
         
            int size=queue.size();
-        //    remnode=remnode-size;
+
            for(int i=0;i<size;i++){
 
             int curr=queue.poll();    
