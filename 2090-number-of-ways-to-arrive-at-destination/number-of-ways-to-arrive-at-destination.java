@@ -27,13 +27,13 @@ class Solution {
         ways[0]=1;
 
         while(!queue.isEmpty()){
-            long[] curr=queue.poll();
+            long[] curr=queue.poll(); //log v
             int node=(int)curr[0]; //since nodes are int
             long t=curr[1];
 
             if(t> distance[node]) continue;
 
-            for(long[] k: list.get(node)){
+            for(long[] k: list.get(node)){ //E
                  int f= (int)k[0];
                  long s=k[1];
 
@@ -41,7 +41,7 @@ class Solution {
 
                  if( newdist< distance[f]){
                     distance[f]=newdist;
-                    queue.add(new long[]{f, distance[f]});
+                    queue.add(new long[]{f, distance[f]}); //logv
                     ways[f]=ways[node];
                  }else if(newdist == distance[f]){
                   ways[f]=(ways[node]+ways[f])%mod;
