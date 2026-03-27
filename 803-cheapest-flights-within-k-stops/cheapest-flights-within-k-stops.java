@@ -13,37 +13,31 @@ class Solution {
             list.get(first).add(new int[]{second, third});
         }
 
-    PriorityQueue<int[]> queue=new PriorityQueue<>((a,b)->a[1]-b[1]);
+    Queue<int[]> queue=new LinkedList<>();
+    int[] distance=new int[n];
+    Arrays.fill(distance, Integer.MAX_VALUE);
+    queue.add(new int[]{src,0});
+    distance[src]=0;
+    int level=0;
+    while(level<=k && !queue.isEmpty()){
+        int size=queue.size();
+        for(int i=0;i<size;i++){
+            int[] curr=queue.poll();
+            int node=curr[0];
+            int l=curr[1];
 
-    queue.add(new int[] {src,0,0});
-    int[][] dist=new int[n][k+2];
-    for (int i = 0; i < n; i++) {
-            Arrays.fill(dist[i], Integer.MAX_VALUE);
+            for(int[] m: list.get(node)){
+                int nextnode=m[0];
+                int cost=m[1];
+
+                if(l+cost<distance[nextnode]){
+                    distance[nextnode]=l+cost;
+                    queue.add(new int[]{nextnode, distance[nextnode]});
+                }
+            }
         }
-    dist[src][0]=0;
-
-    while(!queue.isEmpty())
-{
-    int[] curr=queue.poll();
-    int node=curr[0];
-    int c=curr[1];
-    int stops=curr[2];
-    
-    if(node==dst) return c;
-    if(stops>=k+1) continue;
-    if(c> dist[node][stops]) continue;
-
-    for(int[] l: list.get(node)){
-        int nextnode=l[0];
-        int cost=l[1];
-        int newflights=stops+1;
-        if(dist[node][stops]!=Integer.MAX_VALUE && dist[node][stops]+cost<dist[nextnode][newflights]){
-            dist[nextnode][newflights]=dist[node][stops]+cost;
-            queue.add(new int[]{nextnode, dist[nextnode][newflights],newflights });
-        }
+        level++;
     }
-
-}    
-return -1;
+    return distance[dst]==Integer.MAX_VALUE?-1:distance[dst];
 }
 }
