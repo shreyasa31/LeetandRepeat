@@ -5,11 +5,12 @@ class Solution {
             return -1;
         }
         DSU d=new DSU(n); //create an object of the class
-
-        for(int[] c:connections){
-            if(d.find(c[0]) != d.find(c[1])){
+      
+        for(int[] c:connections){ //edges m
+            if(d.find(c[0]) != d.find(c[1])){ //extra edge if same
 
                 numberofcomponents--;
+               
                 d.union(c[0],c[1]);
             }
         }
@@ -19,8 +20,8 @@ class Solution {
 }
 
 class DSU{ // tc and sc is 4 alpha
-    int[] parent;
-    int[] rank; //union by rank // int[] size union by size
+    int[] parent; //n
+    int[] rank; //union by rank // int[] size union by size //n
 
     public DSU(int size){
         parent=new int[size];
@@ -59,3 +60,5 @@ class DSU{ // tc and sc is 4 alpha
         return false;
     }
 }
+
+//tc= O(n+m*alpha(n))=O(n+m) and sc=O(n)
