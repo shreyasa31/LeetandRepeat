@@ -57,7 +57,7 @@ class DSU{ // tc and sc is 4 alpha
             parent[py]=pu;
             rank[pu]++;
         }
-        return false;
+        return true;
     }
 }
 
