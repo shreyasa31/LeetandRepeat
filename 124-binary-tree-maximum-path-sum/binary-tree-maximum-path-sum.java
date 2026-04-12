@@ -14,44 +14,21 @@
  * }
  */
 class Solution {
+
     public int maxPathSum(TreeNode root) {
-        Map<TreeNode, Integer> gainMap = new HashMap<>();
-        Stack<TreeNode> stack = new Stack<>();
-        Set<TreeNode> visited = new HashSet<>();
-        int maxSum = Integer.MIN_VALUE;
+        sum(root);
+        return max;
+          
+    }
+    int max=Integer.MIN_VALUE;
+    int sum(TreeNode root){
+      if(root==null) return 0;
+        int left=Math.max(0, sum(root.left));
+       int right=Math.max(0,sum(root.right));
+       int sum=left+root.val+right;
+       max=Math.max(max, sum);
+      
+       return Math.max(left,right)+root.val;
 
-        stack.push(root);
-
-        while (!stack.isEmpty()) {
-            TreeNode node = stack.peek();
-
-            boolean canProcess = true;
-
-            if (node.right != null && !visited.contains(node.right)) {
-                stack.push(node.right);
-                canProcess = false;
-            }
-
-            if (node.left != null && !visited.contains(node.left)) {
-                stack.push(node.left);
-                canProcess = false;
-            }
-
-            if (canProcess) {
-                stack.pop();
-                visited.add(node);
-
-                int leftGain = Math.max(0, gainMap.getOrDefault(node.left, 0));
-                int rightGain = Math.max(0, gainMap.getOrDefault(node.right, 0));
-
-                int localMax = node.val + leftGain + rightGain;
-                maxSum = Math.max(maxSum, localMax);
-
-                // Store the max gain to propagate upward
-                gainMap.put(node, node.val + Math.max(leftGain, rightGain));
-            }
-        }
-
-        return maxSum;
     }
 }
