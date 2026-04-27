@@ -1,6 +1,4 @@
 # Write your MySQL query statement below
-select query_name, round(sum(rating/position)/count(query_name),2) as quality, 
-round(SUM(CASE WHEN rating < 3 THEN 1 ELSE 0 END) * 1.0 / COUNT(rating) * 100,2) as poor_query_percentage
-from Queries
+select query_name, round(avg(rating/position),2) as quality,round(SUM(if (rating < 3 ,1,0))*100 / COUNT(rating),2) as poor_query_percentage 
+from Queries as q
 group by query_name
-/*u cant put select inside sum*/
