@@ -30,6 +30,6 @@ public class Solution {
             fast=fast.next;
 
         }
-        return slow;
+        return fast;
     }
 }
