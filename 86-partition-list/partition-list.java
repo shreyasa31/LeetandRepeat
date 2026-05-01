@@ -10,28 +10,24 @@
  */
 class Solution {
     public ListNode partition(ListNode head, int x) {
-        ListNode before=new ListNode(0);
-        ListNode beforecurr=before;
-        
-        ListNode after=new ListNode(0);
-        ListNode aftercurr=after;
+        ListNode beforeX=new ListNode(0);
+        ListNode curr1=beforeX;
+
+        ListNode afterX=new ListNode(0);
+        ListNode curr2=afterX;
         ListNode curr=head;
         while(curr!=null){
-             if(curr.val<x){
-                  beforecurr.next=curr;
-                  beforecurr=beforecurr.next; 
-                  
-             }else{
-                aftercurr.next=curr;
-                aftercurr=aftercurr.next;
-             }
-             curr=curr.next;
-
+            if(curr.val<x){
+                curr1.next=curr;
+                curr1=curr1.next;
+            }else{
+                curr2.next=curr;
+                curr2=curr2.next;
+            }
+            curr=curr.next;
         }
-        aftercurr.next=null;
-
-        beforecurr.next=after.next;
-        return before.next;
-
+        curr2.next=null;
+        curr1.next=afterX.next;
+        return beforeX.next;
     }
 }
