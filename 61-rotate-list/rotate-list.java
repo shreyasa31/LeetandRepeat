@@ -21,7 +21,7 @@ class Solution {
         curr.next=head;
         int k1=k%count;
         curr=head;
-        System.out.println(count);
+    
         for(int i=1;i<count-k1;i++){
             curr=curr.next;
         }
