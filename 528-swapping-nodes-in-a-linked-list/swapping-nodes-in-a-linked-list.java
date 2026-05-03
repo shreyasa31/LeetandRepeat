@@ -18,7 +18,6 @@ class Solution {
             if(count==k)  first=curr;
             curr=curr.next;
            
-       
         }
         // System.out.println(first.val);
         //   System.out.println(count);
