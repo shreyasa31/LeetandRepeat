@@ -15,37 +15,32 @@ class Node {
 
 class Solution {
     public Node copyRandomList(Node head) {
-        Node curr=head;
         if(head==null) return null;
-        while(curr!=null){ //copying next pointers like zigzag fashion creating clones
-            Node node=new Node(curr.val);
+        Node curr=head;
+        while(curr!=null){
+            Node newNode=new Node(curr.val);
             Node temp=curr.next;
-            curr.next=node;
-            node.next=temp;
+            curr.next=newNode;
+            newNode.next=temp;
             curr=temp;
         }
-        
 
-        //copying random pointers
         curr=head;
         while(curr!=null){
-            curr.next.random=(curr.random==null)?null: curr.random.next;
+            curr.next.random=(curr.random==null)?null:curr.random.next;
             curr=curr.next.next;
         }
         
-        //remove all the connections so that we can separate the two copies
-
-        Node oldNode=head;
-        Node newNode=oldNode.next;
-        Node newHead=newNode;
-        while(oldNode!=null){
-            oldNode.next=newNode.next;
-            newNode.next=newNode.next==null?null:newNode.next.next;
-            oldNode=oldNode.next;
-            newNode=newNode.next;
+        Node oldHead=head;
+        Node newHead=oldHead.next;
+        Node curr1=newHead;
+        while(oldHead!=null){
+ 
+            oldHead.next=curr1.next;
+            oldHead=oldHead.next;
+            curr1.next=(curr1.next==null)?null:oldHead.next;
+            curr1=curr1.next;
         }
-
         return newHead;
-
     }
 }
