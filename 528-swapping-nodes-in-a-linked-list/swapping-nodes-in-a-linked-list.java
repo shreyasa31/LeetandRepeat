@@ -24,7 +24,7 @@ class Solution {
             k1++;
         }
         ListNode f1=curr;
-        System.out.println(curr.val);
+       
         ListNode curr2=head;
         for(int i=0;i<=count-k-1;i++){
             curr2=curr2.next;
@@ -33,7 +33,7 @@ class Solution {
         }
           
         ListNode f2=curr2;
- System.out.println(f2.val);
+
         int temp=f1.val;
         f1.val=f2.val;
         f2.val=temp;
