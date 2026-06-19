@@ -25,7 +25,7 @@ class Solution {
             curr=curr.next;
             l++;
         }
-        System.out.println(l);
+    
  
       
         ListNode prev1=null;
