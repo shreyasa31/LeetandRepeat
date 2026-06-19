@@ -10,21 +10,30 @@
  */
 class Solution {
     public ListNode swapPairs(ListNode head) {
-        if(head==null) return null;
+        if(head==null || head.next==null) return head;
         ListNode dummy=new ListNode(0);
-        ListNode prev=head;
-        ListNode curr=head.next;
-        ListNode c=dummy;
-        while(curr!=null){
-            ListNode nextPair=curr.next;
-            c.next=curr;
-            c=c.next;
-            c.next=prev;
-            c=c.next;
-            prev=nextPair;
-            curr=nextPair==null?null:nextPair.next;
+        dummy.next=head;
+        ListNode first=head;
+        ListNode second=head.next;
+        ListNode prev=dummy;
+
+
+
+        while(first !=null && second !=null){
+            ListNode temp=second.next;
+            first.next=temp;
+            second.next=first;
+
+            prev.next=second;
+            prev=first;
+            first=temp;
+            second=first!=null?first.next:null;
+          
+
+
         }
-        c.next=prev;
         return dummy.next;
+
+
     }
 }
