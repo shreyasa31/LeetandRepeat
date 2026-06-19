@@ -19,7 +19,7 @@ class Solution {
 
 
 
-        while(first !=null && second !=null){
+        while(second !=null){
             ListNode temp=second.next;
               prev.next=first.next;
             first.next=temp;
@@ -27,7 +27,7 @@ class Solution {
 
             prev=first;
             first=first.next;
-           second=first!=null?first.next:null;
+            second=first!=null?first.next:null;
             
           
 
