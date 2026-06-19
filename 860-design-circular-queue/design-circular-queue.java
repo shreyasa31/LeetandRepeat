@@ -1,66 +1,72 @@
-class ListNode
-{
+class Node{
     int val;
-    ListNode next;
-    ListNode(int val){
+    Node next;
+    Node(int val){
         this.val=val;
-        this.next=null;
     }
 }
+
+
 class MyCircularQueue {
-    int size; int cursize;
-    ListNode head,tail;
+    Node head, tail;
+    int size; int currsize;
     public MyCircularQueue(int k) {
-       head=null;
-       tail=null;
-       size=k;
-       cursize=0;
+        head=null;
+        tail=null;
+        this.size=k;
+        currsize=0;
     }
     
     public boolean enQueue(int value) {
-        ListNode newNode=new ListNode(value);
-        if(isFull()) return false;
-        if(isEmpty()){
-            head=tail=newNode;
-            tail.next=head;
+       if(isFull()) return false;
+       Node newNode=new Node(value);
+       if(isEmpty()){ 
 
-        }else{
-            tail.next=newNode;
-            tail=newNode;
-            tail.next=head;
-        }
-        cursize++;
-        return true;
+        head=tail=newNode;
+        tail.next=head;
+
+       }else{
+             tail.next=newNode;
+             tail=tail.next;
+             tail.next=head;
+       }
+       currsize++;
+       return true;
     }
     
     public boolean deQueue() {
-        if(isEmpty()) return false;
-        if(cursize==1){
+        if(isEmpty()){
+            return false;
+        }
+
+        if(currsize==1){
             head=tail=null;
         }else{
             head=head.next;
             tail.next=head;
         }
-        cursize--;
+        currsize--;
         return true;
+        
+
     }
     
     public int Front() {
-        if(isEmpty()) return -1;
-        return head.val;
+       if(isEmpty())return -1;
+       return head.val;
     }
     
     public int Rear() {
-        if(isEmpty()) return -1;
-        return tail.val;
+      if(isEmpty()) return -1;
+       return tail.val;
     }
     
     public boolean isEmpty() {
-        return cursize==0;
+        return currsize==0;
     }
     
     public boolean isFull() {
-        return cursize==size;
+        return size==currsize;
     }
 }
 
