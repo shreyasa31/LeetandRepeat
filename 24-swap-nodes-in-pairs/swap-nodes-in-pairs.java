@@ -21,13 +21,14 @@ class Solution {
 
         while(first !=null && second !=null){
             ListNode temp=second.next;
+              prev.next=first.next;
             first.next=temp;
             second.next=first;
 
-            prev.next=second;
             prev=first;
-            first=temp;
-            second=first!=null?first.next:null;
+            first=first.next;
+           second=first!=null?first.next:null;
+            
           
 
 
