@@ -19,14 +19,16 @@ class Solution {
         }
 
         int nodesbeforeRemove=count-n;
-        ListNode prev=null;
+        ListNode dummy=new ListNode(0);
+        dummy.next=head;
+        ListNode prev=dummy;
         ListNode curr1=head;
      if(nodesbeforeRemove==0) return head.next;
        while(curr1!=null){
         if(nodesbeforeRemove==0){
             ListNode temp=curr1.next;
             prev.next=temp;
-            return head;
+            return dummy.next;
             
         }
         prev=curr1;
