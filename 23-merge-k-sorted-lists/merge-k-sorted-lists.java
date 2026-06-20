@@ -11,21 +11,19 @@
 class Solution {
     public ListNode mergeKLists(ListNode[] lists) {
         PriorityQueue<ListNode> minHeap=new PriorityQueue<>((a,b)->a.val-b.val);
-
-        for(ListNode curr:lists){
-            if(curr!=null)
-            minHeap.add(curr);
-            
+        for(ListNode node:lists){
+            if(node!=null)
+            minHeap.add(node);
         }
         ListNode dummy=new ListNode(0);
         ListNode curr=dummy;
         while(!minHeap.isEmpty()){
-         ListNode ans=minHeap.poll();
-         curr.next=ans;
-         curr=curr.next;
-         if(ans.next!=null){
-             minHeap.add(ans.next);
-         }
+            ListNode node=minHeap.poll();
+            curr.next=node;
+            curr=curr.next;
+            if(node.next!=null){
+                minHeap.add(node.next);
+            }
         }
         return dummy.next;
     }
