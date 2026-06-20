@@ -1,10 +1,12 @@
 class Node{
-    Node next,prev;
-    int value;
+    int val;
+    Node next;
+    Node prev;
     int key;
-    public Node(int key,int value){
+
+    Node(int key,int val){
         this.key=key;
-        this.value=value;
+        this.val=val;
         next=null;
         prev=null;
     }
@@ -12,68 +14,71 @@ class Node{
 
 
 
-
-
-
 class LRUCache {
-
-    Node tail,head;
-    int size; 
     HashMap<Integer, Node> map;
+    Node head;
+    Node tail;
+    int currSize; int size;
     public LRUCache(int capacity) {
-        tail=new Node(0,0);
-        head=new Node(0,0);
         map=new HashMap<>();
-        size=capacity;
+        currSize=0;
+        this.size=capacity;
+        head=new Node(0,0);
+        tail=new Node(0,0);
         head.next=tail;
         tail.prev=head;
+
 
     }
     
     public int get(int key) {
         if(map.containsKey(key)){
-          remove(map.get(key));
-          addLast(map.get(key));
-          return map.get(key).value;
+            remove(map.get(key));
+            addLast(map.get(key));
+            return map.get(key).val;
         }
-      
-        return  -1;
-
+        return -1;
     }
     
     public void put(int key, int value) {
-
+         Node newNode=new Node(key,value);
+     
         if(map.containsKey(key)){
-             remove(map.get(key));
-            map.remove(key);
-           
+            
+              remove(map.get(key));
+                map.remove(key);
         }
-
-        Node newNode=new Node(key,value);
-        addLast(newNode);
+        
+       
         map.put(key, newNode);
-   
+        addLast(newNode);
 
-        if(map.size()>size)
-        {
+        if(size<currSize){
             map.remove(head.next.key);
             remove(head.next);
         }
+        
 
+    }
+
+    void addLast(Node newnode){
+        Node temp1=tail.prev;
+        tail.prev=newnode;
+        newnode.prev=temp1;
+        temp1.next=newnode;
+        newnode.next=tail;
+        currSize++;
+       
     }
 
     void remove(Node node){
-        node.prev.next=node.next;
-        node.next.prev=node.prev;
+        Node temp=node.prev;
+        Node nextnode=node.next;
+        temp.next=nextnode;
+        nextnode.prev=temp;
+        currSize--;
 
-    }
 
-    void addLast(Node node){
-         Node dummy=tail.prev;
-         tail.prev=node;
-         node.next=tail;
-         node.prev=dummy;
-         dummy.next=node;
     }
 }
 
