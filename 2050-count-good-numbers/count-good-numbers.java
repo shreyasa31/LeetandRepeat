@@ -1,24 +1,19 @@
 class Solution {
-    int MAX= 1000000007;
+    long MAX=1000000007;
     public int countGoodNumbers(long n) {
-       
-    
-    return (int)((solve(5, (n+1)/2) * solve (4, n/2)) % MAX);
-
-       
-    }
-
-    long solve( long n, long index){
-        if(index==0) return 1;
-        if(index==1) return n;
-       
-        if(index%2==0){
-          return solve((n*n)%MAX, index/2);
-        }
-        else{
-           return (n*solve((n*n)%MAX, index/2))%MAX;
-        }
         
-    
+        if(n==0) return 1;
+        return(int)((solve(5, (n+1)/2) *  solve(4,n/2))%MAX);
     }
+
+     long solve(long x, long n){
+        if(n==0) return 1;
+        if(n==1) return x;
+
+        if(n%2==0){
+            return solve((x*x)%MAX, n/2);
+        }else{
+            return (x*solve((x*x)%MAX,n/2))%MAX;
+        }
+     }
 }
