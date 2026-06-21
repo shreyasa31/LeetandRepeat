@@ -1,57 +1,48 @@
-class ListNode{
-    String Url;
-    ListNode next;
-    ListNode prev;
-    
-    ListNode(String url){
-          Url=url;
-          prev=null;
-          next=null;
+class Node{
+    String value;
+    Node next;
+    Node prev;
+    Node(String value){
+        this.value=value;
+        next=null;
+        prev=null;
     }
 }
 
 
-
-
-
-
-
 class BrowserHistory {
      
-    ListNode curr;
-
-     
+    Node curr;
+    
     public BrowserHistory(String homepage) {
-        curr=new ListNode(homepage);
-       
+        curr=new Node(homepage);
     }
     
     public void visit(String url) {
-        ListNode newNode=new ListNode(url);
+        Node newNode=new Node(url);
         curr.next=newNode;
         newNode.prev=curr;
         curr=curr.next;
-
     }
     
     public String back(int steps) {
-
-        while(steps>0 && curr.prev != null){
+        int x=0;
+       
+        
+        while(curr.prev!=null && x<steps){
             curr=curr.prev;
-            steps--;
+            x++;
         }
-        return curr.Url;
+        return curr.value;
     }
     
-    
     public String forward(int steps) {
- 
-
-        while(steps>0 && curr.next!=null){
+        int x=0;
+        while(curr.next!=null && x<steps){
             curr=curr.next;
-            steps--;
+            x++;
         }
-        return curr.Url;
+        return curr.value;
     }
 }
 
