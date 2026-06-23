@@ -27,7 +27,7 @@ class Solution {
            ListNode first=prev.next;
            ListNode second=first.next;
            for(int i=1;i<k;i++){
-            ListNode temp=second.next;
+         
              first.next = second.next;
 
         second.next = prev.next;
