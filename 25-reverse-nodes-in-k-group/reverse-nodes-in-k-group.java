@@ -20,24 +20,25 @@ class Solution {
         }
 
      
-        ListNode beforeHead=dummy;
+        ListNode prev=dummy;
         
 
         while(count>=k){
-        ListNode groupStart = beforeHead.next;
-        ListNode prev=null;
-        ListNode curr= groupStart;
-            for(int i=0;i<k;i++){
-                ListNode temp=curr.next;
-                curr.next=prev;
-                prev=curr;
-                curr=temp;
-            }
-            beforeHead.next=prev;
-            groupStart.next=curr;
+           ListNode first=prev.next;
+           ListNode second=first.next;
+           for(int i=1;i<k;i++){
+            ListNode temp=second.next;
+             first.next = second.next;
 
-            beforeHead=groupStart;
-            count=count-k;
+        second.next = prev.next;
+        prev.next = second;
+
+        second = first.next;
+              
+           }
+           prev=first;
+           count=count-k;
+          
         }
 
         return dummy.next;
