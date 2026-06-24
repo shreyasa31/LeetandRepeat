@@ -14,24 +14,24 @@
  * }
  */
 class Solution {
-    ArrayList<List<Integer>> res=new ArrayList<>();
-    ArrayList<Integer> arr=new ArrayList<>();
+    List<List<Integer>> res=new ArrayList<>();
     public List<List<Integer>> pathSum(TreeNode root, int targetSum) {
-        
-        if(root==null) return res;
-        arr.add(root.val);
-        int sum=targetSum-root.val;
+        ArrayList<Integer> s= new ArrayList<>();
+        return solve(root, 0, targetSum, s);
+    }
+    List<List<Integer>> solve(TreeNode root, int sum, int targetSum, List<Integer> s){
+       if(root==null) return res;
        
-        if(root.left==null && root.right==null && sum==0){
-             res.add(new ArrayList<>(arr));
-           
-
-          
+        s.add(root.val);
+        sum=sum+root.val;
+        if(root.left==null && root.right==null && sum==targetSum){
+             res.add(new ArrayList<>(s));
+             
         }
-        pathSum(root.left,sum);
-        pathSum(root.right,sum);
-        arr.remove(arr.size() - 1);
-
+        solve(root.left, sum, targetSum, s);
+        solve(root.right, sum, targetSum, s);
+        s.remove(s.size()-1);
         return res;
+
     }
 }
