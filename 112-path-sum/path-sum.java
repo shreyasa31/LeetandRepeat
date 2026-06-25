@@ -26,7 +26,7 @@ class Solution {
        
         boolean left= solve(root.left, sum, targetSum) ;
         boolean right= solve(root.right,sum, targetSum);
-        sum=sum-root.val;
+     
         return left|| right;
     }
 }
