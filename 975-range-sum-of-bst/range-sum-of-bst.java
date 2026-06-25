@@ -19,8 +19,11 @@ class Solution {
         if(root==null) return 0;
         if(root.val>=low && root.val<=high){
             sum=sum+root.val;
+        
         }
+        if(root.val>low)
         rangeSumBST(root.left, low, high);
+        if(root.val<high)
         rangeSumBST(root.right, low, high);
         return sum;
 
