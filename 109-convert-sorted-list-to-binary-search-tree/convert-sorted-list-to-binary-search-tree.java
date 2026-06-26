@@ -27,7 +27,7 @@ class Solution {
     public TreeNode sortedListToBST(ListNode head) {
         if(head==null) return null;
         ListNode mid=findMid(head);
-        System.out.println(mid.val);
+        
         TreeNode newNode=new TreeNode(mid.val);
           if(head==mid) return newNode;
         newNode.left=sortedListToBST(head);
