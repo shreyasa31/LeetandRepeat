@@ -27,7 +27,7 @@ String inOrder(TreeNode root, StringBuilder sb) {
         sb.append("null");
         return sb.toString();
     }
-
+    
     sb.append("^");
     inOrder(root.left, sb);
     sb.append(root.val);
