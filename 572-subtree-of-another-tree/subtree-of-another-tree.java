@@ -19,8 +19,7 @@ class Solution {
         String first=inOrder(root,sb);
          StringBuilder sb1=new StringBuilder();
         String second=inOrder(subRoot,sb1);
-        System.out.println(first);
-        System.out.println(second);
+       
         return first.contains(second);
     }
    
