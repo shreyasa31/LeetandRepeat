@@ -15,18 +15,25 @@
  */
 class Solution {
     public boolean isSubtree(TreeNode root, TreeNode subRoot) {
-        if(root==null) return false;
-        if(isSame(root, subRoot)) return true;
-         
-        return isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot);
-
+       StringBuilder sb=new StringBuilder();
+        String first=inOrder(root,sb);
+         StringBuilder sb1=new StringBuilder();
+        String second=inOrder(subRoot,sb1);
+        System.out.println(first);
+        System.out.println(second);
+        return first.contains(second);
     }
-    boolean isSame(TreeNode p, TreeNode q){
-         if(p==null && q==null) return true;
-         if(p==null || q==null) return false;
-         if(p.val!=q.val) return false;
-
-         return isSame(p.left,q.left) && isSame(p.right, q.right);
-
+   
+String inOrder(TreeNode root, StringBuilder sb) {
+    if (root == null) {
+        sb.append("null");
+        return sb.toString();
     }
+
+    sb.append("^");
+    inOrder(root.left, sb);
+    sb.append(root.val);
+    inOrder(root.right, sb);
+    return sb.toString();
+}
 }
