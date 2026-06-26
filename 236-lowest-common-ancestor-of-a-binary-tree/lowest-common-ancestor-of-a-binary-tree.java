@@ -20,5 +20,7 @@ class Solution {
             return left;
         }
         return root;
+        // if(left!=null && right!=null) return root; //doesnt work
+       
     }
 }
