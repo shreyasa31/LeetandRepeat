@@ -14,17 +14,17 @@
  * }
  */
 class Solution {
+    PriorityQueue<Integer> maxHeap =new PriorityQueue<>((a,b)->b-a);
     public int kthSmallest(TreeNode root, int k) {
-        ArrayList<Integer> res=new ArrayList<>();
-        inOrder(root, res);
+     
+        if(root==null) return 0;
 
-        return res.get(k-1);
-    }
-     void inOrder(TreeNode root,  ArrayList<Integer> res){
-       
-        if(root==null) return ;
-       inOrder(root.left, res);
-       res.add(root.val);
-       inOrder(root.right,res);
+        maxHeap.add(root.val);
+        if(maxHeap.size()>k){
+            maxHeap.poll();
         }
+        kthSmallest(root.left, k);
+           kthSmallest(root.right, k);
+        return maxHeap.peek();
+    }
 }
