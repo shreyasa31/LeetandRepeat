@@ -15,11 +15,10 @@
  */
 class Solution {
     public boolean isSubtree(TreeNode root, TreeNode subRoot) {
-       StringBuilder sb=new StringBuilder();
-        String first=inOrder(root,sb);
-         StringBuilder sb1=new StringBuilder();
-        String second=inOrder(subRoot,sb1);
-       
+
+        String first=inOrder(root,new StringBuilder());
+
+        String second=inOrder(subRoot,new StringBuilder());
         return first.contains(second);
     }
    
