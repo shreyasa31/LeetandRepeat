@@ -14,33 +14,34 @@
  * }
  */
 class Solution {
-          HashMap<Long,Integer> map=new HashMap<>();
-         
-       
-          
+    HashMap<Long, Integer> map=new HashMap<>();
     public int pathSum(TreeNode root, int targetSum) {
-  
-       map.put(0L,1);
-       return dfs(root, 0L, targetSum);
-       
+         
+         map.put(0L,1);
+        return solve(root, targetSum,0);
+    }
+   
+    int count=0;
+    int solve(TreeNode root, int targetSum, long sum){
+    if(root==null) return 0;
+   
+    sum=sum+root.val;
+   
 
+    if(map.containsKey(sum-targetSum))
+    {
+        count+=map.getOrDefault(sum-targetSum,0);
     }
 
-    int dfs(TreeNode root, long prefixSum, int targetSum){
-             int count=0;
-         if(root==null){
-            return count;
-        }
-      
-        prefixSum+=root.val;
-       
-        if(map.containsKey(prefixSum-targetSum)){
-           count+=map.get(prefixSum-targetSum);
-        }
-        map.put(prefixSum, map.getOrDefault(prefixSum,0)+1);
-        count+=dfs(root.left, prefixSum, targetSum);
-        count+=dfs(root.right, prefixSum, targetSum);
-        map.put(prefixSum, map.get(prefixSum) - 1);
-        return count;
+    map.put(sum, map.getOrDefault(sum, 0)+1 );
+
+
+    solve(root.left, targetSum, sum);
+    solve(root.right, targetSum, sum);
+    map.put(sum, map.get(sum) - 1);
+
+    
+   return count;
+
     }
 }
