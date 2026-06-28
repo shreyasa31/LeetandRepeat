@@ -31,7 +31,7 @@ class Solution {
                 queue.add(new Pair<>(key.right,value+1));
              }
         }
-        System.out.println(min+" "+max);
+    
         for(int i=min;i<=max;i++){
             if(map.containsKey(i)){
                  
