@@ -22,7 +22,7 @@ class Solution {
     public Node cloneGraph(Node node) {
         if(node==null) return node;
         HashMap<Node,Node> map=new HashMap<>();
-        map.put(node, new Node(node.val, new ArrayList<>()));
+        map.put(node, new Node(node.val));
 
         Queue<Node> queue=new LinkedList<>();
         queue.add(node);
@@ -31,7 +31,7 @@ class Solution {
 
             for(Node nei:curr.neighbors){
                 if(!map.containsKey(nei)){
-                    map.put(nei, new Node(nei.val, new ArrayList<>()));
+                    map.put(nei, new Node(nei.val));
                     queue.add(nei);
                 }
                 map.get(curr).neighbors.add(map.get(nei));
