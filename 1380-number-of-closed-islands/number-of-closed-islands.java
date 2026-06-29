@@ -6,13 +6,13 @@ class Solution {
         int[][] dirs = { { 0, 1 }, { 0, -1 }, { 1, 0 }, { -1, 0 } };
         boolean isClosed = true;
         int count = 0;
-        boolean[][] visited = new boolean[row][cols];
+        // boolean[][] visited = new boolean[row][cols];
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < cols; j++) {
-                if (grid[i][j] == 0 && visited[i][j]==false) {
+                if (grid[i][j] == 0) {
                     queue.add(new int[] { i, j });
                     isClosed=true;
-                    visited[i][j] = true;
+                    grid[i][j]=1;
 
                     while (!queue.isEmpty()) {
                         int[] curr = queue.poll();
@@ -27,8 +27,8 @@ class Solution {
                             int nr = r + dir[0];
                             int nc = c + dir[1];
 
-                            if (nr >= 0 && nc >= 0 && nr < row && nc < cols && grid[nr][nc]==0 && visited[nr][nc] == false) {
-                                visited[nr][nc] = true;
+                            if (nr >= 0 && nc >= 0 && nr < row && nc < cols && grid[nr][nc]==0) {
+                                grid[nr][nc] = 1;
                                 queue.add(new int[] { nr, nc });
                             }
                         }
