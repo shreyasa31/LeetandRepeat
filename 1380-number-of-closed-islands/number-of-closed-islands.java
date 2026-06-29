@@ -1,48 +1,46 @@
 class Solution {
-    public int closedIsland(int[][] grid) { // any part of island shudnt touch the boundry
+    public int closedIsland(int[][] grid) {
+        int row = grid.length;
+        int cols = grid[0].length;
         Queue<int[]> queue = new LinkedList<>();
-        int rows = grid.length;
+        int[][] dirs = { { 0, 1 }, { 0, -1 }, { 1, 0 }, { -1, 0 } };
+        boolean isClosed = true;
         int count = 0;
-
-        int[][] dirs = { { 1, 0 }, { -1, 0 }, { 0, -1 }, { 0, 1 } };
-        int cols = grid[0].length; boolean isclosed=false;
-        boolean[][] visited = new boolean[rows][cols];
-        for (int i = 0; i < rows; i++) {
+        boolean[][] visited = new boolean[row][cols];
+        for (int i = 0; i < row; i++) {
             for (int j = 0; j < cols; j++) {
-                if (grid[i][j] == 0  && visited[i][j]==false) {
+                if (grid[i][j] == 0 && visited[i][j]==false) {
                     queue.add(new int[] { i, j });
-                    isclosed=true;
+                    isClosed=true;
                     visited[i][j] = true;
-                    
+
                     while (!queue.isEmpty()) {
                         int[] curr = queue.poll();
                         int r = curr[0];
                         int c = curr[1];
-                        if(r==0 || c==0 || r==rows-1|| c==cols-1){
-                                 isclosed=false;
-                            
-                            }
-                            
-                        for (int[] k : dirs) {
-                            int nr = k[0] + r;
-                            int nc = k[1] + c;
-                            
-                            if(nr>=0 && nc>=0 && nr<rows && nc<cols && grid[nr][nc]==0){
-                                if(visited[nr][nc]==false){
-                                    visited[nr][nc]=true;
-                                    queue.add(new int[]{nr,nc});
-                                }
-                            }
+                        
+                    if (r == 0 || c == 0 || r == row - 1 || c == cols - 1) {
+                        isClosed = false;
+                    }
 
+                        for (int[] dir : dirs) {
+                            int nr = r + dir[0];
+                            int nc = c + dir[1];
+
+                            if (nr >= 0 && nc >= 0 && nr < row && nc < cols && grid[nr][nc]==0 && visited[nr][nc] == false) {
+                                visited[nr][nc] = true;
+                                queue.add(new int[] { nr, nc });
+                            }
                         }
                     }
-   if(isclosed) count++;
+
+                    if (isClosed) {
+                        count++;
+                    }
+
                 }
-             
             }
         }
-                          
-    
         return count;
     }
 }
