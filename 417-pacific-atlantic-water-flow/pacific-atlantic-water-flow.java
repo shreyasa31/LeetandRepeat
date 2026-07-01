@@ -1,64 +1,73 @@
 class Solution {
     public List<List<Integer>> pacificAtlantic(int[][] heights) {
-        List<List<Integer>> list = new ArrayList<>();
-        Queue<int[]> pacificqueue = new LinkedList<>();
-        Queue<int[]> atlanticqueue = new LinkedList<>();
-        int rows = heights.length;
-        int cols = heights[0].length;
-        for (int i = 0; i < rows; i++) {
-             pacificqueue.add(new int []{i,0});
-             atlanticqueue.add(new int[]{i,cols-1});
+        int rows=heights.length;
+        int cols=heights[0].length;
+        Queue<int[]> pacificQueue=new LinkedList<>();
+        Queue<int[]> atlanticQueue=new LinkedList<>();
+
+        boolean[][] pacificVisited=new boolean[rows][cols];
+        boolean[][] atlanticVisited=new boolean[rows][cols];
+        for(int i=0;i<rows;i++){
+           pacificQueue.add(new int[]{i, 0});
+           pacificVisited[i][0]=true;
+           atlanticQueue.add(new int[]{i, cols-1});
+            atlanticVisited[i][cols-1]=true;
+             
         }
 
-        for (int j = 0; j < cols; j++) {
-             pacificqueue.add(new int[]{0,j});
-             atlanticqueue.add(new int[]{rows-1,j});
+        for(int j=0;j<cols;j++){
+           pacificQueue.add(new int[]{0, j});
+            pacificVisited[0][j]=true;
+           atlanticQueue.add(new int[]{rows-1, j});
+           atlanticVisited[rows-1][j]=true;
+             
         }
-        boolean[][] pacific=bfs(pacificqueue, heights);
-        boolean[][] atlantic=bfs(atlanticqueue, heights);
-      
-        for(int i=0;i<rows;i++){
+
+
+        boolean[][] pacific=bfs(heights, pacificQueue, pacificVisited);
+        boolean[][] atlantic=bfs(heights, atlanticQueue,atlanticVisited );
+        List<List<Integer>> res=new ArrayList<>();
+       
+        for(int i=0;i<rows;i++)
+        {
             for(int j=0;j<cols;j++){
                 if(pacific[i][j] && atlantic[i][j]){
-                    List<Integer> r=new ArrayList<>();
-                    r.add(i);
-                    r.add(j); // list.of(i,j)
-                    list.add(r);
+                    List<Integer> l = new ArrayList<>();
+    l.add(i);
+    l.add(j);
+    res.add(l);
                 }
+        
+               
             }
         }
-
-
-        return list;
-        
-        
-
+        return res;
     }
-    boolean[][] bfs(Queue<int[]> queue, int[][] heights){
-        boolean[][] visited=new boolean[heights.length][heights[0].length];
-        boolean[][] reachable=new boolean[heights.length][heights[0].length];
-        int[][] dirs={{1,0},{-1,0},{0,-1},{0,1}};
+
+    boolean[][] bfs(int[][] heights, Queue<int[]> queue, boolean[][] visited){
+        int row=heights.length;
+        int col=heights[0].length;
+        int[][] dirs={{0,1},{0,-1},{1,0},{-1,0}};
+         
+        boolean[][] res=new boolean[row][col];
         while(!queue.isEmpty()){
+
             int[] curr=queue.poll();
-            
             int r=curr[0];
             int c=curr[1];
-            visited[r][c]=true;
-            reachable[r][c]=true;
-            
-            for(int[] k:dirs){
-                int nr=k[0]+r;
-                int nc=k[1]+c;
-
-                if(nr>=0 && nc>=0 && nr<heights.length && nc<heights[0].length && visited[nr][nc]==false && heights[r][c]<=heights[nr][nc]){
-                    visited[nr][nc]=true;
-                    queue.add(new int[]{nr,nc});
+            res[r][c]=true;
+            for(int[] dir:dirs ){
+                int nr=r+dir[0];
+                int nc=c+dir[1];
+                if(nr>=0 && nc>=0 && nr<row && nc<col && visited[nr][nc]==false && heights[nr][nc]>=heights[r][c]){
+                   visited[nr][nc]=true;
+                   queue.add(new int[]{nr,nc});
                 }
             }
-                    
+
         }
-        return reachable;
+        
+return res;
+  
     }
-
-
 }
