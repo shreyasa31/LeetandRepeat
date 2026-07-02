@@ -21,10 +21,11 @@ class Solution {
 
         }
        List<Integer> res=new ArrayList<>();
+       boolean[] safe=new boolean[graph.length];
         while(!queue.isEmpty()){
            int curr=queue.poll();
 
-           res.add(curr);
+           safe[curr]=true;
            for(int num:revList.get(curr)){
             outdegree[num]--;
             if(outdegree[num]==0){
@@ -32,7 +33,9 @@ class Solution {
             }
            }
         }
-        Collections.sort(res);
+        for(int i=0;i<graph.length;i++){
+            if(safe[i]) res.add(i);
+        }
         return res;
     }
 }
