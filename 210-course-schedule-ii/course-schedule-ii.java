@@ -1,39 +1,38 @@
 class Solution {
     public int[] findOrder(int numCourses, int[][] prerequisites) {
-        int[] res=new int[numCourses];
-        ArrayList<List<Integer>> list=new ArrayList<>();
-       int[] indegree=new int[numCourses];
-       int count=0;
-       for(int i=0;i<numCourses;i++){
-        list.add(new ArrayList<>());
-       }
-       for(int[] k:prerequisites){ 
-        int first=k[0];
-        int second=k[1];
-        indegree[first]++;
-        list.get(second).add(first);
-       }
-    
-       Queue<Integer> queue=new LinkedList<>();
-       for(int i=0;i<indegree.length;i++){ 
-           if(indegree[i]==0){
-            queue.add(i);
-           }
-       }
-       int i=0;
-       while(!queue.isEmpty()){
-        int curr=queue.poll();
-        count++;
-        res[i]=curr;
-        i++;
-        for(int n:list.get(curr)){
-            indegree[n]--;
-            if(indegree[n]==0){
-                queue.add(n);
+         List<List<Integer>> adjList=new ArrayList<>();
+        for(int i=0;i<numCourses;i++){
+             adjList.add(new ArrayList<>());
+        }
+
+        int[] indegree=new int[numCourses];
+
+        for(int[] p: prerequisites){
+            int n1=p[0];
+            int n2=p[1];
+
+            adjList.get(n2).add(n1);
+            indegree[n1]++;
+        }
+        Queue<Integer> queue=new LinkedList<>();
+        for(int i=0;i<indegree.length;i++){
+            if(indegree[i]==0){
+                  queue.add(i);
             }
         }
-        if(count==numCourses) return res;
-       }
-return new int[]{};
+        int[] res=new int[numCourses]; int i=0; int count=0;
+        while(!queue.isEmpty()){
+            int curr=queue.poll();
+            res[i]=curr; i++;
+            count++;
+            for(int k: adjList.get(curr)){
+                indegree[k]--;
+                if(indegree[k]==0){
+                    queue.add(k);
+                }
+            }
+        }
+        if(count!=numCourses) return new int[0];
+        return res;
     }
 }
