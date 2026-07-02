@@ -1,44 +1,44 @@
 class Solution {
     public List<Boolean> checkIfPrerequisite(int numCourses, int[][] prerequisites, int[][] queries) {
-        ArrayList<List<Integer>> list=new ArrayList<>();
+         List<List<Integer>> adjList=new ArrayList<>();
+          List<Set<Integer>> pre=new ArrayList<>();
         for(int i=0;i<numCourses;i++){
-            list.add(new ArrayList<>());
+             adjList.add(new ArrayList<>());
+             pre.add(new HashSet<>());
         }
+
         int[] indegree=new int[numCourses];
-        for(int[] k:prerequisites){
-            int first=k[0];
-            int second=k[1];
-            indegree[second]++;
-            list.get(first).add(second);
+
+        for(int[] p: prerequisites){
+            int n1=p[0];
+            int n2=p[1];
+
+            adjList.get(n1).add(n2);
+            indegree[n2]++;
         }
-        boolean[][] res=new boolean[numCourses][numCourses];
         Queue<Integer> queue=new LinkedList<>();
-        for(int i=0;i<indegree.length;i++)
-        {
+        for(int i=0;i<indegree.length;i++){
             if(indegree[i]==0){
-                queue.add(i);
+                  queue.add(i);
             }
         }
-        while(!queue.isEmpty())
-        {
-             int curr=queue.poll();
-             for(int k: list.get(curr)){
+        int count=0;
+        while(!queue.isEmpty()){
+            int curr=queue.poll();
+            count++;
+            for(int k: adjList.get(curr)){
+                pre.get(k).add(curr);
+                pre.get(k).addAll(pre.get(curr));
                 indegree[k]--;
-                res[curr][k]=true;
-                for(int i=0;i<numCourses;i++){
-                    if(res[i][curr]){
-                        res[i][k]=true;
-                    }
-                }
                 if(indegree[k]==0){
                     queue.add(k);
                 }
-             }
+            }
         }
-        List<Boolean> r=new ArrayList<>();
-      for (int[] q : queries) {
-            r.add(res[q[0]][q[1]]);
+        List<Boolean> res=new ArrayList<>();
+       for (int[] q : queries) {
+            res.add(pre.get(q[1]).contains(q[0]));
         }
-        return r;
+        return res ;
     }
 }
