@@ -1,39 +1,38 @@
 class Solution {
     public List<Integer> eventualSafeNodes(int[][] graph) {
-        ArrayList<List<Integer>> revlist=new ArrayList<>();
+        List<List<Integer>> revList=new ArrayList<>();
+        for(int k=0;k<graph.length;k++){
+            revList.add(new ArrayList<>());
+        }
         int[] outdegree=new int[graph.length];
         for(int i=0;i<graph.length;i++){
-            revlist.add(new ArrayList<>());
-        }
-        for(int i=0;i<graph.length;i++){
-        for(int k:graph[i]){
-            outdegree[i]++;
-            revlist.get(k).add(i);
-        }
+
+        
+            for(int j:graph[i]){
+                    outdegree[i]++;
+                  revList.get(j).add(i);
+            }
         }
         Queue<Integer> queue=new LinkedList<>();
-        for(int i=0;i<outdegree.length;i++){
+        for(int i=0;i<outdegree.length;i++)
+        {    
+            if(outdegree[i]==0)
+            queue.add(i);
 
-            if(outdegree[i]==0){
-                queue.add(i);
-            }
         }
-        boolean[] safe=new boolean[graph.length];
        List<Integer> res=new ArrayList<>();
         while(!queue.isEmpty()){
-            int curr=queue.poll();
-            safe[curr]=true;
-            for(int k:revlist.get(curr)){
-                outdegree[k]--;
-           
-                if(outdegree[k]==0){
-                    queue.add(k);
-                }
+           int curr=queue.poll();
+
+           res.add(curr);
+           for(int num:revList.get(curr)){
+            outdegree[num]--;
+            if(outdegree[num]==0){
+                queue.add(num);
             }
+           }
         }
-        for(int i=0;i<safe.length;i++){
-          if(safe[i]) res.add(i);
-        }
+        Collections.sort(res);
         return res;
     }
 }
