@@ -1,4 +1,5 @@
-/**
+
+import java.util.stream.Gatherer.Integrator;/**
  * Definition for a binary tree node.
  * public class TreeNode {
  *     int val;
@@ -9,53 +10,45 @@
  */
 class Solution {
     public List<Integer> distanceK(TreeNode root, TreeNode target, int k) {
-        HashMap<TreeNode, TreeNode> map=new HashMap<>();
-        parentMap(root, map,null);
-        ArrayList<Integer> ans=new ArrayList<>();
+        HashMap<TreeNode,TreeNode> map=new HashMap<>();
+        convert(root, null, map);
+        HashSet<TreeNode> set=new HashSet<>();
         Queue<TreeNode> queue=new LinkedList<>();
-        HashSet<TreeNode> visited=new HashSet<>();
-
         queue.add(target);
-        visited.add(target);
-        int level=0;
-        while(!queue.isEmpty()){
+        set.add(target);
+       int level=0;
+        while(level<k && !queue.isEmpty()){
             int size=queue.size();
-            if(level==k){
-                while(!queue.isEmpty()){
-                    ans.add(queue.poll().val);
-            }
-            return ans;
-            }
-            for(int i=0;i<size;i++)
-            {
+            for(int i=0;i<size;i++){
                  TreeNode curr=queue.poll();
-                 
-                 if(curr.left!=null && !visited.contains(curr.left)){
-                        visited.add(curr.left);
-                        queue.add(curr.left);
+                 if(curr.left!=null && !set.contains(curr.left)){
+                    set.add(curr.left);
+                    queue.add(curr.left);
                  }
-                 if(curr.right!=null && !visited.contains(curr.right)){
-                        visited.add(curr.right);
-                        queue.add(curr.right);
+                 if(curr.right!=null && !set.contains(curr.right)){
+                    set.add(curr.right);
+                    queue.add(curr.right);
                  }
                  TreeNode parent=map.get(curr);
-                 if(parent!=null && !visited.contains(parent)){
-                        visited.add(parent);
-                        queue.add(parent);
+                 if(parent!=null && !set.contains(parent)){
+                    set.add(parent);
+                    queue.add(parent);
                  }
             }
             level++;
         }
-return ans;
+       
+        ArrayList<Integer> res=new ArrayList<>();
+        while(!queue.isEmpty()){
+            res.add(queue.poll().val);
+            
+        }
+        return res;
     }
-    void parentMap(TreeNode root, HashMap<TreeNode, TreeNode> map, TreeNode parent ){
-        if(root==null) return;
-        map.put(root, parent);
-        parentMap(root.left, map,root);
-        parentMap(root.right, map, root);
-
-      
+    void convert(TreeNode root,TreeNode parent, HashMap<TreeNode, TreeNode> map){
+           if(root==null) return;
+           map.put(root, parent);
+           convert(root.left, root, map);
+           convert(root.right, root, map);
     }
-
-    
 }
