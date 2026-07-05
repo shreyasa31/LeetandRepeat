@@ -1,20 +1,18 @@
 class Solution {
     public int makeConnected(int n, int[][] connections) {
-        int numberofcomponents=n;
-         if(connections.length < n-1) {
-            return -1;
-        }
-        DSU d=new DSU(n); //create an object of the class
-      
-        for(int[] c:connections){ //edges m
-            if(d.find(c[0]) != d.find(c[1])){ //extra edge if same
+         int numOfConnect=n;
+         DSU d=new DSU(n);
+         if(n-connections.length>1) return -1;
+         for(int[] c:connections){
+            if(d.find(c[0]) !=d.find(c[1])){
 
-                numberofcomponents--;
-               
-                d.union(c[0],c[1]);
+                numOfConnect--;
+                d.union(c[0], c[1]);
+
             }
-        }
-        return numberofcomponents-1;
+         }
+
+         return numOfConnect-1;
 
     }
 }
