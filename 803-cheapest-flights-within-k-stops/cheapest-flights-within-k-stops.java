@@ -1,43 +1,47 @@
 class Solution {
     public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
-        ArrayList<List<int[]>> list=new ArrayList<>();
-        for(int i=0;i<n;i++){
-            list.add(new ArrayList<>());
-        }
+        int distance[]=new int[n];
 
-        for(int[] f:flights){
-            int first=f[0];
-            int second=f[1];
-            int third=f[2];
+        Arrays.fill(distance,Integer.MAX_VALUE);
 
-            list.get(first).add(new int[]{second, third});
-        }
+        distance[src]=0;
+    List<List<int[]>> adjList=new ArrayList<>();
+    for(int i=0;i<n;i++){
+        adjList.add(new ArrayList<>());
+    }
+    for(int[] f:flights){
+        int n1=f[0];
+        int n2=f[1];
+        int w=f[2];
 
+        adjList.get(n1).add(new int[]{n2,w});
+    }
     Queue<int[]> queue=new LinkedList<>();
-    int[] distance=new int[n];
-    Arrays.fill(distance, Integer.MAX_VALUE);
     queue.add(new int[]{src,0});
-    distance[src]=0;
     int level=0;
+
     while(level<=k && !queue.isEmpty()){
         int size=queue.size();
+
         for(int i=0;i<size;i++){
             int[] curr=queue.poll();
             int node=curr[0];
-            int l=curr[1];
+            int d=curr[1];
+        
+            for(int[] a: adjList.get(node)){
+                int n1=a[0];
+                int w1=a[1];
 
-            for(int[] m: list.get(node)){
-                int nextnode=m[0];
-                int cost=m[1];
-
-                if(l+cost<distance[nextnode]){
-                    distance[nextnode]=l+cost;
-                    queue.add(new int[]{nextnode, distance[nextnode]});
+                if(distance[node]!=Integer.MAX_VALUE && d+w1<distance[n1]){
+                      distance[n1]=d+w1;
+                      System.out.print(distance[n1]);
+                      queue.add(new int[]{n1, distance[n1]});
                 }
             }
         }
         level++;
     }
+    System.out.println(Arrays.toString(distance));
     return distance[dst]==Integer.MAX_VALUE?-1:distance[dst];
-}
+    }
 }
