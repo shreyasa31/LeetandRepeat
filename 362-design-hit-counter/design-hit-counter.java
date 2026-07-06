@@ -10,7 +10,7 @@ class HitCounter {
     }
     
     public int getHits(int timestamp) {
-      while(!queue.isEmpty() && queue.peek()<=timestamp-300){
+      while(!queue.isEmpty() && timestamp-queue.peek()>=300){
         queue.remove();
       }
         return queue.size();
