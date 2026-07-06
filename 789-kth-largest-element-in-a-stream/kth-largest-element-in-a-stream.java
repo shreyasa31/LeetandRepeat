@@ -1,12 +1,12 @@
 class KthLargest {
-   PriorityQueue<Integer> minHeap;
-   int k;
+    PriorityQueue<Integer> minHeap; int k;
     public KthLargest(int k, int[] nums) {
-        minHeap=new PriorityQueue<>();
-        this.k=k;
-        for(int n:nums){
-            add(n);
-        }
+         minHeap=new PriorityQueue<>();
+         this.k=k;
+         for(int num:nums )
+         {
+            add(num);
+         }
     }
     
     public int add(int val) {
