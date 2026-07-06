@@ -1,6 +1,5 @@
 class HitCounter {
- 
-    Queue<Integer> queue;
+Queue<Integer> queue;
     public HitCounter() {
         queue=new LinkedList<>();
     }
@@ -10,14 +9,11 @@ class HitCounter {
     }
     
     public int getHits(int timestamp) {
-      while(!queue.isEmpty() && timestamp-queue.peek()>=300){
-        queue.remove();
-      }
+        while(!queue.isEmpty() && timestamp-queue.peek()>=300 ){
+           queue.poll();
+        }
         return queue.size();
     }
-  
-
-    
 }
 
 /**
