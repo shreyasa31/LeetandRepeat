@@ -1,31 +1,34 @@
 class Solution {
     public List<Integer> findAnagrams(String s, String p) {
-        HashMap<Character,Integer> map=new HashMap<>();
-        ArrayList<Integer> list=new ArrayList<>();
-        for(char p1:p.toCharArray()){
-            map.put(p1, map.getOrDefault(p1,0)+1);
+        List<Integer> res=new ArrayList<>();
+        HashMap<Character, Integer> map=new HashMap<>();
+        for(char c:p.toCharArray()){
+            map.put(c, map.getOrDefault(c, 0)+1);
         }
-        int i=0;int j=0;
         HashMap<Character, Integer> map2=new HashMap<>();
+        int i=0;int j=0;
+        int n=p.length();
         while(j<s.length()){
-            map2.put(s.charAt(j), map2.getOrDefault(s.charAt(j),0)+1);
-            if(j-i+1<p.length()){
+            char c=s.charAt(j);
+
+            if(j-i+1<n){
+                map2.put(c, map2.getOrDefault(c, 0)+1);
                 j++;
             }else{
+                map2.put(c, map2.getOrDefault(c, 0)+1);
                 if(map.equals(map2)){
-                  list.add(i);
+                    res.add(i);
                 }
                 if(map2.containsKey(s.charAt(i))){
                     map2.put(s.charAt(i), map2.get(s.charAt(i))-1);
                     if(map2.get(s.charAt(i))==0){
-                    map2.remove(s.charAt(i));
+                        map2.remove(s.charAt(i));
+                    }
                 }
-                }
-                
                 i++;
                 j++;
             }
         }
-        return list;
+        return res;
     }
 }
