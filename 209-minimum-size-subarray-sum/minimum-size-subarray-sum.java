@@ -4,7 +4,7 @@ class Solution {
         int sum=0; int min=Integer.MAX_VALUE;
         while(j<nums.length){
             sum=sum+nums[j];
-                      System.out.println(j);
+            
             while(sum>=target){
               
                  
