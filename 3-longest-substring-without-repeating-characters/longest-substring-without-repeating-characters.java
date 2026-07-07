@@ -12,7 +12,7 @@ class Solution {
                 j++;
                 
             }else{
-                // max=Math.max(max, j-i);
+  
                 set.remove(s.charAt(i));
                 i++;
             }
