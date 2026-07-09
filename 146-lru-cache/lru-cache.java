@@ -1,34 +1,31 @@
-class Node{
-    int val;
-    Node next;
-    Node prev;
+class DLL{
+    DLL next;
+    DLL prev;
     int key;
-
-    Node(int key,int val){
+    int val;
+    DLL(int key,int val){
         this.key=key;
         this.val=val;
-        next=null;
-        prev=null;
     }
 }
 
 
 
+
 class LRUCache {
-    HashMap<Integer, Node> map;
-    Node head;
-    Node tail;
-    int currSize; int size;
+    DLL head;
+    DLL tail;
+    int currSize;
+    int size;
+    HashMap<Integer, DLL> map;
     public LRUCache(int capacity) {
-        map=new HashMap<>();
-        currSize=0;
         this.size=capacity;
-        head=new Node(0,0);
-        tail=new Node(0,0);
+        currSize=0;
+        head=new DLL(0, 0);
+        tail=new DLL(0, 0);
         head.next=tail;
         tail.prev=head;
-
-
+        map=new HashMap<>();
     }
     
     public int get(int key) {
@@ -41,45 +38,47 @@ class LRUCache {
     }
     
     public void put(int key, int value) {
-         Node newNode=new Node(key,value);
-     
-        if(map.containsKey(key)){
-            
-              remove(map.get(key));
-                map.remove(key);
-        }
         
-       
+        if(map.containsKey(key)){
+             remove(map.get(key));
+             map.remove(key);
+            
+        }
+
+
+        DLL newNode=new DLL(key, value);
         map.put(key, newNode);
         addLast(newNode);
 
-        if(size<currSize){
-            map.remove(head.next.key);
-            remove(head.next);
-        }
+        if(currSize>size){
+         
+          map.remove(head.next.key);
+               remove(head.next);
         
-
+          
+        }
     }
 
-    void addLast(Node newnode){
-        Node temp1=tail.prev;
-        tail.prev=newnode;
-        newnode.prev=temp1;
-        temp1.next=newnode;
-        newnode.next=tail;
-        currSize++;
-       
+    void addLast(DLL node){
+       DLL temp=tail.prev;
+       temp.next=node;
+       node.prev=temp;
+       node.next=tail;
+       tail.prev=node;
+       currSize++;
     }
 
-    void remove(Node node){
-        Node temp=node.prev;
-        Node nextnode=node.next;
-        temp.next=nextnode;
-        nextnode.prev=temp;
-        currSize--;
+    void remove(DLL node){
+   
+      DLL prevNode = node.prev;
+    DLL nextNode = node.next;
 
+    prevNode.next = nextNode;
+    nextNode.prev = prevNode;
 
+      currSize--;
     }
+   
 }
 
 /**
